@@ -244,28 +244,22 @@ class Youtube
 
     /**
      * @param string $channelId
-     * @param string $pageToken
-     * @param int $maxResults
      * @param array $optionalParams
      * @param array $part
      * @return array
      * @throws \Exception
      */
-    public function getPlaylistsByChannelId($channelId, $pageToken = '', $maxResults = 50, $optionalParams = array(), $part = ['id', 'snippet', 'status'])
+    public function getPlaylistsByChannelId($channelId, $optionalParams = array(), $part = ['id', 'snippet', 'status'])
     {
         $API_URL = $this->getApi('playlists.list');
         $params = array(
             'channelId' => $channelId,
-            'part' => implode(', ', $part),
-            'maxResults' => $maxResults
+            'part' => implode(', ', $part)
         );
 
         if ($optionalParams) {
             $params = array_merge($params, $optionalParams);
         }
-
-        // Pass page token if it is given, an empty string won't change the api response
-        $params['pageToken'] = $pageToken;
 
         $apiData = $this->api_get($API_URL, $params);
 
